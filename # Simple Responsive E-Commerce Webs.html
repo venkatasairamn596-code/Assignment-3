@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple E-Commerce</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+        header {
+            background: #1a73e8;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #0b4cab;
+        }
+        nav a {
+            padding: 14px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            background: #083b8c;
+        }
+        .container {
+            padding: 20px;
+        }
+        .products, .orders, .wishlist, .reviews {
+            display: none;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 8px 12px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0b4cab;
+        }
+        @media (max-width: 600px) {
+            header { font-size: 18px; }
+            nav a { padding: 10px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>Life-Long E-Commerce Portal</header>
+
+<nav>
+    <a onclick="showSection('products')">Products</a>
+    <a onclick="showSection('orders')">Orders</a>
+    <a onclick="showSection('wishlist')">Wishlist</a>
+    <a onclick="showSection('reviews')">Reviews</a>
+</nav>
+
+<div class="container">
+
+    <!-- PRODUCTS -->
+    <div id="products" class="products">
+        <h2>Products</h2>
+
+        <div class="card">
+            <h3>Smartphone</h3>
+            <img src="C:\Users\DELL\Downloads\Titanium_Blue_1024x1024.webp"width=100px height=100px>
+            <p>Price: ₹1,50,000</p>
+            <button onclick="addToWishlist('Smartphone')">Add to Wishlist</button>
+            <button onclick="addToOrders('Smartphone')">Order Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Headphones</h3>
+            <img src="C:\Users\DELL\Downloads\shopping.webp" width=100px height=100px>
+            <p>Price: ₹1,200</p>
+            <button onclick="addToWishlist('Headphones')">Add to Wishlist</button>
+            <button onclick="addToOrders('Headphones')">Order Now</button>
+        </div>
+
+        <div class="card">
+            <h3>Laptop</h3>
+            <img src="C:\Users\DELL\Downloads\MacBook-Pro-2021.webp"  width=100px height=100px>
+
+            <p>Price: ₹2,50,000</p>
+            <button onclick="addToWishlist('Laptop')">Add to Wishlist</button>
+            <button onclick="addToOrders('Laptop')">Order Now</button>
+        </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="orders" class="orders">
+        <h2>Your Orders</h2>
+        <div id="orderList"></div>
+    </div>
+
+    <!-- WISHLIST -->
+    <div id="wishlist" class="wishlist">
+        <h2>Your Wishlist</h2>
+        <div id="wishlistItems"></div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div id="reviews" class="reviews">
+        <h2>Reviews</h2>
+        <textarea id="reviewText" rows="3" style="width:100%;"></textarea><br><br>
+        <button onclick="submitReview()">Submit Review</button>
+        <h3>All Reviews:</h3>
+        <div id="reviewList"></div>
+    </div>
+
+</div>
+
+<script>
+    function showSection(id) {
+        document.querySelectorAll('.products, .orders, .wishlist, .reviews')
+            .forEach(sec => sec.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    // Default open: Products
+    showSection('products');
+
+    let wishlist = [];
+    let orders = [];
+    let reviews = [];
+
+    function addToWishlist(item) {
+        wishlist.push(item);
+        updateWishlist();
+        alert(item + " added to wishlist!");
+    }
+
+    function addToOrders(item) {
+        orders.push(item);
+        updateOrders();
+        alert(item + " added to orders!");
+    }
+
+    function updateWishlist() {
+        document.getElementById('wishlistItems').innerHTML = wishlist
+            .map(i => `<div class='card'>${i}</div>`).join('');
+    }
+
+    function updateOrders() {
+        document.getElementById('orderList').innerHTML = orders
+            .map(i => `<div class='card'>${i}</div>`).join('');
+    }
+
+    function submitReview() {
+        let text = document.getElementById('reviewText').value;
+        if (text.trim() === "") return alert("Write something!");
+        reviews.push(text);
+        updateReviews();
+        document.getElementById('reviewText').value = "";
+    }
+
+    function updateReviews() {
+        document.getElementById('reviewList').innerHTML = reviews
+            .map(r => `<div class='card'>${r}</div>`).join('');
+    }
+</script>
+
+</body>
+</html>
+```
